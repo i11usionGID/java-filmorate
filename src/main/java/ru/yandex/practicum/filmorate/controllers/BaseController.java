@@ -12,27 +12,30 @@ import java.util.Map;
 public abstract class BaseController<T extends BaseUnit> {
     public final Map<Integer, T> storage = new HashMap<>();
     private int generatedId = 1;
-    public T create(T data){
+
+    public T create(T data) {
         validate(data);
-        for(T element:storage.values()){
-            if(element.equals(data)){
+        for (T element:storage.values()) {
+            if (element.equals(data))
                 throw new DataAlreadyExistException(String.format("Data %s is already exist", data));
-            }
         }
         data.setId(generatedId++);
         storage.put(data.getId(), data);
         return data;
     }
+
     public T update(T data) {
         validate(data);
-        if(!storage.containsKey(data.getId())){
+        if (!storage.containsKey(data.getId())) {
             throw new DataNotFoundException(String.format("Data %s not found", data));
         }
         storage.put(data.getId(), data);
         return data;
     }
-    public List<T> getAll(){
+
+    public List<T> getAll() {
         return new ArrayList<>(storage.values());
     }
+
     public abstract void validate(T data);
 }

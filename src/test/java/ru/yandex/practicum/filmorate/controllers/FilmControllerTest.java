@@ -13,7 +13,7 @@ class FilmControllerTest {
     FilmController filmController;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         filmController = new FilmController();
     }
 
