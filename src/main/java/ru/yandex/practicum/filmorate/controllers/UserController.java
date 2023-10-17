@@ -39,6 +39,7 @@ public class UserController extends BaseController<User> {
             user.setName(user.getLogin());
         }
         if(user.getLogin().contains(" ") ||
+                user.getLogin() == null ||
         user.getBirthday().isAfter(LocalDate.now())){
             throw new ValidationException("Invalid user login or birthday.");
         }

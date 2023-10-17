@@ -13,14 +13,8 @@ import java.time.LocalDate;
 @SuperBuilder
 @NoArgsConstructor
 public class Film extends BaseUnit{
-    @NotEmpty
     private String name;
-    @Size(max = 200)
-    @NotEmpty
     private String description;
-    @NotEmpty
     private LocalDate releaseDate;
-    @NotEmpty
-    @Min(0)
     private int duration;
 }

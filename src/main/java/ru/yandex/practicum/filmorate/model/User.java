@@ -16,9 +16,7 @@ import java.time.LocalDate;
 public class User extends BaseUnit{
     @Email
     private String email;
-    @NotEmpty
     private String login;
     private String name;
-    @NotEmpty
     private LocalDate birthday;
 }
