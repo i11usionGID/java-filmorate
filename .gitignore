@@ -10,7 +10,6 @@
 hs_err_pid*
 out/
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
@@ -41,6 +40,8 @@ build/
 
 ### VS Code ###
 .vscode/
-
+.mvn/
+mvnw.cmd
+mvnw
 *.db
 db/*
