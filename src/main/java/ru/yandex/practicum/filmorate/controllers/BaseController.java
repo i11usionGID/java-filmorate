@@ -15,10 +15,8 @@ public abstract class BaseController<T extends BaseUnit> {
 
     public T create(T data) {
         validate(data);
-        for (T element:storage.values()) {
-            if (element.equals(data))
-                throw new DataAlreadyExistException(String.format("Data %s is already exist", data));
-        }
+        if (storage.containsKey(data.getId()))
+            throw new DataAlreadyExistException(String.format("Data %s is already exist", data));
         data.setId(generatedId++);
         storage.put(data.getId(), data);
         return data;

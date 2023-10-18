@@ -37,11 +37,8 @@ public class FilmController extends BaseController<Film> {
     //почему-то через анотации не работает, пришлось добавить проверку в validate
 
     public void validate(Film film) {
-        if (film.getReleaseDate().isBefore(LocalDate.of(1895,12,28)) ||
-        film.getName().isEmpty() ||
-        film.getDescription().length() > 200 ||
-        film.getDuration() < 0) {
-            throw new ValidationException("Invalid ReleaseDate or name or description or duration.");
+        if (film.getReleaseDate().isBefore(LocalDate.of(1895,12,28))) {
+            throw new ValidationException("Invalid ReleaseDate.");
         }
     }
 

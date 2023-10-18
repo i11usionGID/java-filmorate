@@ -34,14 +34,12 @@ public class UserController extends BaseController<User> {
         return super.update(user);
     }
 
-    public void validate(User user) throws ValidationException {
+    public void validate(User user) {
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
         }
-        if (user.getLogin().contains(" ") ||
-                user.getLogin() == null ||
-        user.getBirthday().isAfter(LocalDate.now())) {
-            throw new ValidationException("Invalid user login or birthday.");
+        if (user.getBirthday().isAfter(LocalDate.now())) {
+            throw new ValidationException("Invalid user birthday.");
         }
     }
 }

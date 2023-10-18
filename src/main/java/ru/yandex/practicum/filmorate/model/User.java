@@ -14,8 +14,10 @@ import java.time.LocalDate;
 @SuperBuilder
 @NoArgsConstructor
 public class User extends BaseUnit {
+    @NotBlank
     @Email
     private String email;
+    @NotBlank
     private String login;
     private String name;
     private LocalDate birthday;
