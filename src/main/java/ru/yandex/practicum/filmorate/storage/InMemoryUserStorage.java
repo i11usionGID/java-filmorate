@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class InMemoryUserStorage extends InMemoryBase<User> implements UserStorage{
+public class InMemoryUserStorage extends InMemoryBase<User> implements UserStorage {
 
     @Override
     public List<User> getAll() {
@@ -61,7 +61,7 @@ public class InMemoryUserStorage extends InMemoryBase<User> implements UserStora
 
     @Override
     public User getUser(Integer userId) {
-        if(!storage.containsKey(userId)){
+        if (!storage.containsKey(userId)) {
             throw new DataNotFoundException("Пользователь с таким id не найден.");
         }
         return storage.get(userId);

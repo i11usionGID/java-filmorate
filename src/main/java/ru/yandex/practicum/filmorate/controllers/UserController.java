@@ -6,24 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
-import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
-public class UserController{
+public class UserController {
 
     private UserStorage userStorage;
     private UserService userService;
 
     @Autowired
-    public UserController(UserStorage userStorage, UserService userService){
+    public UserController(UserStorage userStorage, UserService userService) {
         this.userStorage = userStorage;
         this.userService = userService;
     }
@@ -48,27 +46,27 @@ public class UserController{
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Integer id){
+    public User getUser(@PathVariable Integer id) {
         return userStorage.getUser(id);
     }
 
     @GetMapping("/{id}/friends")
-    public List<User> getFriendList(@PathVariable("id") Integer id){
+    public List<User> getFriendList(@PathVariable("id") Integer id) {
         return userService.getFriends(id);
     }
 
     @PutMapping("/{id}/friends/{friendId}")
-    public void addFriend(@PathVariable("id") Integer id, @PathVariable("friendId") Integer friendId){
+    public void addFriend(@PathVariable("id") Integer id, @PathVariable("friendId") Integer friendId) {
         userService.addFriend(id, friendId);
     }
 
     @DeleteMapping("/{id}/friends/{friendId}")
-    public void deleteFriend(@PathVariable("id") Integer id, @PathVariable("friendId") Integer friendId){
+    public void deleteFriend(@PathVariable("id") Integer id, @PathVariable("friendId") Integer friendId) {
         userService.deleteFriend(id, friendId);
     }
 
     @GetMapping("/{id}/friends/common/{anotherId}")
-    public List<User> getMutualFriends(@PathVariable("id") Integer id, @PathVariable("anotherId") Integer anotherId){
+    public List<User> getMutualFriends(@PathVariable("id") Integer id, @PathVariable("anotherId") Integer anotherId) {
         return userService.getMutualFriends(id, anotherId);
     }
 }

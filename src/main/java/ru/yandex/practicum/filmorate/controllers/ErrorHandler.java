@@ -12,25 +12,25 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse validationException(final ValidationException e){
+    public ErrorResponse validationException(final ValidationException e) {
         return new ErrorResponse(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse dataAlreadyExistException(final DataAlreadyExistException e){
+    public ErrorResponse dataAlreadyExistException(final DataAlreadyExistException e) {
         return new ErrorResponse(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse dataNotFoundException(final DataNotFoundException e){
+    public ErrorResponse dataNotFoundException(final DataNotFoundException e) {
         return new ErrorResponse(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse incorrectParameterException(final IncorrectParameterException e){
+    public ErrorResponse incorrectParameterException(final IncorrectParameterException e) {
         return new ErrorResponse(e.getMessage());
     }
 }

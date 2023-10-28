@@ -29,11 +29,11 @@ public class Film extends BaseUnit {
         return likesFrom;
     }
 
-    public void addLike(Integer id){
+    public void addLike(Integer id) {
         likesFrom.add(id);
     }
 
-    public void removeLike(Integer id){
+    public void removeLike(Integer id) {
         likesFrom.remove(id);
     }
 }

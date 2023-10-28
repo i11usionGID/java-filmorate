@@ -29,11 +29,11 @@ public class User extends BaseUnit {
         return friends;
     }
 
-    public void addFriend(Integer id){
+    public void addFriend(Integer id) {
         friends.add(id);
     }
 
-    public void removeFriend(Integer id){
+    public void removeFriend(Integer id) {
         friends.remove(id);
     }
 }

@@ -5,11 +5,9 @@ import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.DataAlreadyExistException;
 import ru.yandex.practicum.filmorate.exceptions.DataNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,42 +19,42 @@ public class FilmService {
     UserStorage userStorage;
 
     @Autowired
-    public FilmService(FilmStorage filmStorage, UserStorage userStorage){
+    public FilmService(FilmStorage filmStorage, UserStorage userStorage) {
         this.filmStorage = filmStorage;
         this.userStorage = userStorage;
     }
 
-    public Set<Integer> getLikesFrom(Integer id){
+    public Set<Integer> getLikesFrom(Integer id) {
         return filmStorage.getFilm(id).getLikesFrom();
     }
 
-    public void addLike(Integer id, Integer userId){
-        if(!filmStorage.getStorage().containsKey(id)){
+    public void addLike(Integer id, Integer userId) {
+        if (!filmStorage.getStorage().containsKey(id)) {
             throw new DataNotFoundException("Фильм с таким id не найден.");
         }
-        if(!userStorage.getStorage().containsKey(userId)){
+        if (!userStorage.getStorage().containsKey(userId)) {
             throw new DataNotFoundException("Пользователь с таким id не найден.");
         }
-        if(filmStorage.getFilm(id).getLikesFrom().contains(userStorage.getUser(userId))){
+        if (filmStorage.getFilm(id).getLikesFrom().contains(userStorage.getUser(userId))) {
             throw new DataAlreadyExistException("Пользователь уже оценил этот фильм.");
         }
         filmStorage.getFilm(id).addLike(userId);
     }
 
-    public void deleteLike(Integer id, Integer userId){
-        if(!filmStorage.getStorage().containsKey(id)){
+    public void deleteLike(Integer id, Integer userId) {
+        if (!filmStorage.getStorage().containsKey(id)) {
             throw new DataNotFoundException("Фильм с таким id не найден.");
         }
-        if(!userStorage.getStorage().containsKey(userId)){
+        if (!userStorage.getStorage().containsKey(userId)) {
             throw new DataNotFoundException("Пользователь с таким id не найден.");
         }
-        if(!filmStorage.getFilm(id).getLikesFrom().contains(userStorage.getUser(userId).getId())){
+        if (!filmStorage.getFilm(id).getLikesFrom().contains(userStorage.getUser(userId).getId())) {
             throw new DataNotFoundException("Пользователь не ставил лайк этому фильму.");
         }
         filmStorage.getFilm(id).removeLike(userId);
     }
 
-    public List<Film> getTopFilms(Integer count){
+    public List<Film> getTopFilms(Integer count) {
         List<Film> allFilms = filmStorage.getAll();
         return allFilms.stream()
                 .sorted((p0, p1) -> {

@@ -22,7 +22,7 @@ public class FilmController {
     private FilmService filmService;
 
     @Autowired
-    public FilmController(InMemoryFilmStorage filmStorage, FilmService filmService){
+    public FilmController(InMemoryFilmStorage filmStorage, FilmService filmService) {
         this.filmStorage = filmStorage;
         this.filmService = filmService;
     }
@@ -40,7 +40,7 @@ public class FilmController {
     }
 
     @GetMapping("/{id}")
-    public Film getFilm(@PathVariable("id") Integer id){
+    public Film getFilm(@PathVariable("id") Integer id) {
         return filmStorage.getFilm(id);
     }
 
@@ -51,18 +51,18 @@ public class FilmController {
     }
 
     @PutMapping("/{id}/like/{userId}")
-    public void addLike(@PathVariable("id") Integer id, @PathVariable("userId") Integer userId){
+    public void addLike(@PathVariable("id") Integer id, @PathVariable("userId") Integer userId) {
         filmService.addLike(id, userId);
     }
 
     @DeleteMapping("/{id}/like/{userId}")
-    public void deleteLike(@PathVariable("id") Integer id, @PathVariable("userId") Integer userId){
+    public void deleteLike(@PathVariable("id") Integer id, @PathVariable("userId") Integer userId) {
        filmService.deleteLike(id, userId);
     }
 
     @GetMapping("/popular")
-    public List<Film> getTopFilms(@RequestParam(defaultValue = "10", required = false) Integer count){
-        if(count<1){
+    public List<Film> getTopFilms(@RequestParam(defaultValue = "10", required = false) Integer count) {
+        if (count < 1) {
             throw new IncorrectParameterException("Параметр должно быть больше 0.");
         }
         return filmService.getTopFilms(count);

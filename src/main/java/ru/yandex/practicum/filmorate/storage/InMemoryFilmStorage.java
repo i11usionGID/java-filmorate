@@ -61,7 +61,7 @@ public class InMemoryFilmStorage extends InMemoryBase<Film> implements FilmStora
 
     @Override
     public Film getFilm(Integer filmId) {
-        if(!storage.containsKey(filmId)){
+        if (!storage.containsKey(filmId)) {
             throw new DataNotFoundException("Фильм с таким id не найден.");
         }
         return storage.get(filmId);
