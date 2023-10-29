@@ -22,7 +22,7 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse dataAlreadyExistException(final DataAlreadyExistException e) {
-        log.debug("Получен статус 400 Internal Server Error {}", e.getMessage(), e);
+        log.debug("Получен статус 500 Internal Server Error {}", e.getMessage(), e);
         return new ErrorResponse(e.getMessage());
     }
 
@@ -43,7 +43,7 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse otherExceptions(final Exception e) {
-        log.debug("Получен статус 400 Internal Server Error {}", e.getMessage(), e);
+        log.debug("Получен статус 500 Internal Server Error {}", e.getMessage(), e);
         return new ErrorResponse((e.getMessage()));
     }
 }
