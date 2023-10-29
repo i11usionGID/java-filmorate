@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.controllers;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/films")
+@AllArgsConstructor
 @Slf4j
 
 public class FilmController {
@@ -61,7 +63,7 @@ public class FilmController {
     }
 
     @GetMapping("/popular")
-    public List<Film> getTopFilms(@RequestParam(defaultValue = "10", required = false) Integer count) {
+    public List<Film> getTopFilms(@RequestParam(defaultValue = "10") Integer count) {
         if (count < 1) {
             throw new IncorrectParameterException("Параметр должно быть больше 0.");
         }

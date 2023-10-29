@@ -5,15 +5,15 @@ import java.util.Map;
 
 public interface BaseStorage<T> {
 
-    public List<T> getAll();
+    List<T> getAll();
 
-    public T update(T data);
+    T update(T data);
 
-    public T create(T data);
+    T create(T data);
 
-    public void validate(T data);
+    void validate(T data);
 
-    public Map<Integer, T> getStorage();
+    Map<Integer, T> getStorage();
 
-    public int getGeneratedId();
+    int getGeneratedId();
 }

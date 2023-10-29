@@ -9,7 +9,6 @@ import ru.yandex.practicum.filmorate.model.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class InMemoryUserStorage extends InMemoryBase<User> implements UserStorage {
@@ -47,16 +46,6 @@ public class InMemoryUserStorage extends InMemoryBase<User> implements UserStora
         if (data.getBirthday().isAfter(LocalDate.now())) {
             throw new ValidationException("Invalid user birthday.");
         }
-    }
-
-    @Override
-    public Map<Integer, User> getStorage() {
-        return super.getStorage();
-    }
-
-    @Override
-    public int getGeneratedId() {
-        return super.getGeneratedId();
     }
 
     @Override

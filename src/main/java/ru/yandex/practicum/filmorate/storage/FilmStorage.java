@@ -4,5 +4,5 @@ import ru.yandex.practicum.filmorate.model.Film;
 
 
 public interface FilmStorage extends BaseStorage<Film> {
-    public Film getFilm(Integer filmId);
+    Film getFilm(Integer filmId);
 }

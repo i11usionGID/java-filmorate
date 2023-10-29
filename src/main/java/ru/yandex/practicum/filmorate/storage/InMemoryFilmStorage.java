@@ -9,7 +9,6 @@ import ru.yandex.practicum.filmorate.model.Film;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 @Component
@@ -47,16 +46,6 @@ public class InMemoryFilmStorage extends InMemoryBase<Film> implements FilmStora
         if (data.getReleaseDate().isBefore(START_TIME)) {
             throw new ValidationException("Invalid ReleaseDate.");
         }
-    }
-
-    @Override
-    public Map<Integer, Film> getStorage() {
-        return super.getStorage();
-    }
-
-    @Override
-    public int getGeneratedId() {
-        return super.getGeneratedId();
     }
 
     @Override
