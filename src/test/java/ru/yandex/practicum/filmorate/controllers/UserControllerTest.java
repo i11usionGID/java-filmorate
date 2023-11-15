@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.ResourceUtils;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -30,10 +32,13 @@ class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
     UserController userController;
+    InMemoryUserStorage userStorage;
+    UserService userService;
 
     @BeforeEach
     void setUp() {
-        userController = new UserController();
+        userController = new UserController(userStorage, userService);
+        userStorage = new InMemoryUserStorage();
     }
 
     @Test
@@ -63,7 +68,7 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError());
     }
 
-    @Test
+   @Test
     void validatePositive() {
         User user = User.builder()
                 .name("name")
@@ -71,7 +76,7 @@ class UserControllerTest {
                 .birthday(LocalDate.now().minusMonths(2))
                 .email("yandex@practicum.ru")
                 .build();
-        userController.validate(user);
+        userStorage.validate(user);
     }
 
 
@@ -83,7 +88,7 @@ class UserControllerTest {
                 .birthday(LocalDate.now().plusMonths(2))
                 .email("yandex@practicum.ru")
                 .build();
-        Assertions.assertThrows(ValidationException.class, () -> userController.validate(user));
+        Assertions.assertThrows(ValidationException.class, () -> userStorage.validate(user));
     }
 
     @Test
@@ -94,8 +99,9 @@ class UserControllerTest {
                 .birthday(LocalDate.now().minusMonths(2))
                 .email("yandex@practicum.ru")
                 .build();
-        userController.validate(user);
+        userStorage.validate(user);
     }
+
 
     private String getContentFromFile(String fileName) {
         try {

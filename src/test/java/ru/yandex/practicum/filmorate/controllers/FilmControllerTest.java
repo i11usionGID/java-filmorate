@@ -15,6 +15,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.ResourceUtils;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
+import ru.yandex.practicum.filmorate.storage.InMemoryUserStorage;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -29,10 +34,16 @@ class FilmControllerTest {
     @Autowired
     private MockMvc mockMvc;
     FilmController filmController;
+    FilmStorage filmStorage;
+    FilmService filmService;
+    UserStorage userStorage;
 
     @BeforeEach
     void setUp() {
-        filmController = new FilmController();
+        userStorage = new InMemoryUserStorage();
+        filmStorage = new InMemoryFilmStorage();
+        filmService = new FilmService(filmStorage, userStorage);
+        filmController = new FilmController((InMemoryFilmStorage) filmStorage, filmService);
     }
 
     @Test
@@ -79,7 +90,7 @@ class FilmControllerTest {
                 .releaseDate(LocalDate.of(1900,1,1))
                 .duration(10)
                 .build();
-        filmController.validate(film);
+        filmStorage.validate(film);
     }
 
     @Test
@@ -90,8 +101,10 @@ class FilmControllerTest {
                 .releaseDate(LocalDate.of(1800,1,1))
                 .duration(10)
                 .build();
-        Assertions.assertThrows(ValidationException.class, () -> filmController.validate(film));
+        Assertions.assertThrows(ValidationException.class, () -> filmStorage.validate(film));
     }
+
+
 
     private String getContentFromFile(String fileName) {
         try {
