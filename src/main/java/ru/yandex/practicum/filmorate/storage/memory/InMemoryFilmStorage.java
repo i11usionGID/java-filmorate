@@ -1,16 +1,18 @@
-package ru.yandex.practicum.filmorate.storage;
+package ru.yandex.practicum.filmorate.storage.memory;
 
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exceptions.DataAlreadyExistException;
 import ru.yandex.practicum.filmorate.exceptions.DataNotFoundException;
 import ru.yandex.practicum.filmorate.exceptions.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.memory.InMemoryBase;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Deprecated
 @Component
 public class InMemoryFilmStorage extends InMemoryBase<Film> implements FilmStorage {
 

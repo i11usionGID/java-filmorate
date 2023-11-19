@@ -1,14 +1,19 @@
 package ru.yandex.practicum.filmorate.model;
 
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.validation.constraints.*;
+
 @Data
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @NoArgsConstructor
-public abstract class BaseUnit {
-    protected Integer id;
+public class Mpa extends BaseUnit {
+
+    @NotBlank
+    private String name;
 }

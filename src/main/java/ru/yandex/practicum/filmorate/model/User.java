@@ -8,8 +8,6 @@ import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -23,17 +21,12 @@ public class User extends BaseUnit {
     private String login;
     private String name;
     private LocalDate birthday;
-    private Set<Integer> friends = new HashSet<>();
 
-    public Set<Integer> getFriends() {
-        return friends;
-    }
-
-    public void addFriend(Integer id) {
-        friends.add(id);
-    }
-
-    public void removeFriend(Integer id) {
-        friends.remove(id);
+    public User(int id, String email, String login, String name, LocalDate birthday) {
+        this.id = id;
+        this.email = email;
+        this.login = login;
+        this.name = name;
+        this.birthday = birthday;
     }
 }
