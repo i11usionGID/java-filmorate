@@ -1,14 +1,14 @@
 package ru.yandex.practicum.filmorate.controllers;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exceptions.IncorrectParameterException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
-import ru.yandex.practicum.filmorate.storage.InMemoryFilmStorage;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/films")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 
 public class FilmController {
@@ -24,14 +24,14 @@ public class FilmController {
     private FilmService filmService;
 
     @Autowired
-    public FilmController(InMemoryFilmStorage filmStorage, FilmService filmService) {
+    public FilmController(@Qualifier("filmDbStorage") FilmStorage filmStorage, FilmService filmService) {
         this.filmStorage = filmStorage;
         this.filmService = filmService;
     }
 
     @GetMapping
     public List<Film> getAll() {
-        log.info("Getting films {}", filmStorage.getStorage().values());
+        log.info("Getting films");
         return filmStorage.getAll();
     }
 

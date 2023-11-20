@@ -1,10 +1,11 @@
-package ru.yandex.practicum.filmorate.storage;
+package ru.yandex.practicum.filmorate.storage.memory;
 
 import ru.yandex.practicum.filmorate.model.BaseUnit;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public abstract class InMemoryBase<T extends BaseUnit> {
     protected final Map<Integer, T> storage = new HashMap<>();
     protected int generatedId = 1;

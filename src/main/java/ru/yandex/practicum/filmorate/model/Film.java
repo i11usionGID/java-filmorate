@@ -22,8 +22,13 @@ public class Film extends BaseUnit {
     @NotNull
     private LocalDate releaseDate;
     @Min(1)
-    private long duration;
+    private int duration;
+    @NotNull
+    private Mpa mpa;
+    private Set<Genre> genres = new HashSet<>();
+    private int rate = 0;
     private Set<Integer> likesFrom = new HashSet<>();
+
 
     public Set<Integer> getLikesFrom() {
         return likesFrom;
