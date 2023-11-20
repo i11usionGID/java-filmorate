@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.storage.database;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -17,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -70,9 +72,19 @@ public class FilmDbStorage implements FilmStorage {
         data.setId(keyHolder.getKey().intValue());
         String sqlQuery1 = "insert into film_genres (film_id, genre_id) " +
                 "values (?, ?)";
-        for (Genre genres: data.getGenres()) {
-            jdbcTemplate.update(sqlQuery1, data.getId(), genres.getId());
-        }
+        List<Genre> genres = new ArrayList<>(data.getGenres());
+        jdbcTemplate.batchUpdate(sqlQuery1, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                ps.setInt(1, data.getId());
+                ps.setInt(2, genres.get(i).getId());
+            }
+
+            @Override
+            public int getBatchSize() {
+                return genres.size();
+            }
+        });
         return data;
     }
 
@@ -91,9 +103,19 @@ public class FilmDbStorage implements FilmStorage {
             jdbcTemplate.update(sqlQuery1, data.getId());
             String sqlQuery2 = "insert into film_genres (film_id, genre_id) " +
                     "values (?, ?)";
-            for (Genre genres : data.getGenres()) {
-                jdbcTemplate.update(sqlQuery2, data.getId(), genres.getId());
-            }
+            List<Genre> genres = new ArrayList<>(data.getGenres());
+            jdbcTemplate.batchUpdate(sqlQuery2, new BatchPreparedStatementSetter() {
+                @Override
+                public void setValues(PreparedStatement ps, int i) throws SQLException {
+                    ps.setInt(1, data.getId());
+                    ps.setInt(2, genres.get(i).getId());
+                }
+
+                @Override
+                public int getBatchSize() {
+                    return genres.size();
+                }
+            });
             return getFilm(data.getId());
         }
     }
